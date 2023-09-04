@@ -1,0 +1,1 @@
+# TrendHunt-Application
