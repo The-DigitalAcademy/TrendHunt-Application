@@ -3,8 +3,29 @@ import cv2
 import numpy as np
 import os
 import gdown
-gdown.download('https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/view?usp=sharing', quiet=False)
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+# Authenticate with Google Drive API
+gauth = GoogleAuth()
+gauth.LocalWebserverAuth() 
 
+drive = GoogleDrive(gauth)
+
+# Replace 'file_id' with your model's file ID
+file_id = '1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5'
+
+# Find the file by its ID
+file = drive.CreateFile({'id': file_id})
+
+# Read the model file's content
+model_content = file.GetContentString()
+# For example, you can save it to a .h5 file and load the TensorFlow model
+with open('my_model.h5', 'wb') as f:
+    f.write(model_content.encode())
+
+# Load the TensorFlow model
+from tensorflow.keras.models import load_model
+model = load_model('my_model.h5')
 # Set the title and description of the app
 st.title("Image Capture, Object Detection, and Image Details App")
 st.write("This app allows you to capture or upload an image, perform object detection using YOLOv3, and add image details.")
