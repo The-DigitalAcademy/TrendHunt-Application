@@ -84,7 +84,7 @@ def load_image(path):
     
 
 # Predict the bounding boxes and classes for the image
-boxes, classes, scores = model(load_image())
+boxes, classes, scores =model = load_model(model_path)
 
 # Draw the bounding boxes and labels on the image
 for box, class_id, score in zip(boxes, classes, scores):
