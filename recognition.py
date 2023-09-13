@@ -63,6 +63,7 @@ if st.button("Detect Objects"):
 
     # Load YOLOv3 model
     net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+    #model= model 
     with open("coco.names", "r") as f:
         classes = f.read().strip().split("\n")
     
