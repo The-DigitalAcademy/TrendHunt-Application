@@ -11,12 +11,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 from keras.preprocessing import image
 # Authenticate with Google Drive API
-try:
-    model_path = r"'https://drive.google.com/drive/folders/1AgrVT8tgA4p_oHWuuyGHvIX_maQkGaJE/my_model.h5"
-    model = load_model(model_path)
-except:
-   
-    print("...it seems to be better to use more simple naming with the .h5 file!")
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+import io
+import tensorflow as tf
+
+# Authenticate with Google Drive
+# Replace with your own credentials and file ID
+CLIENT_ID = '115991188667805246382'
+CLIENT_SECRET = '73f4ec0eb233922c63bc320c353533c817d0fcf8'
+FILE_ID = '1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5'
+
+# Create a Google Drive API service
+drive_service = build('drive', 'v3')
+credentials = None  # You should load your credentials here
+
+# Download the model file from Google Drive
+request = drive_service.files().get_media(fileId=FILE_ID)
+file_stream = io.BytesIO()
+downloader = MediaIoBaseDownload(file_stream, request)
+done = False
+while done is False:
+    status, done = downloader.next_chunk()
+
+# Load the model
+model = tf.keras.models.load_model(io.BytesIO(file_stream.getvalue()))
 
 
 # Set the title and description of the app
