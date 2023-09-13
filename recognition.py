@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from keras.preprocessing import image
 # Authenticate with Google Drive API
 try:
-    model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my data/model.h5"
+    model_path = r".\drive\MyDrive\folders\my data\my_model.h5"
     model = load_model(model_path)
 except:
    
