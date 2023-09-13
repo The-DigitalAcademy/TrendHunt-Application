@@ -2,6 +2,8 @@ import streamlit as st
 import cv2
 import numpy as np
 import os
+import gdown
+gdown.download('https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/view?usp=sharing', quiet=False)
 
 # Set the title and description of the app
 st.title("Image Capture, Object Detection, and Image Details App")
