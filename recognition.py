@@ -61,33 +61,38 @@ if st.button("Detect Objects"):
     image_path = "captured_image.jpg" if option == "Capture Image" else "uploaded_image.jpg"
     st.write("Performing object detection...")
 
-    # Load YOLOv3 model
-    net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
-    #model= model 
-    with open("coco.names", "r") as f:
-        classes = f.read().strip().split("\n")
-    
-    # Load the image for detection
-    image = cv2.imread(image_path)
-    blob = cv2.dnn.blobFromImage(image, 1/255.0, (416, 416), swapRB=True, crop=False)
-    
-    net.setInput(blob)
-    layer_names = net.getUnconnectedOutLayersNames()
-    outputs = net.forward(layer_names)
+    ##test
+    # Get the classes
+classes =['Hand-bags', 'wallets', 'Bags', 'Balls', 'Sunglasses', 'shorts', 'Pants', 'T-shirts', 'sneakers', 'Loafers', 'Socks', 'Watches', 'Sandals']
 
-    # Loop over each detection
-    for output in outputs:
-        for detection in output:
-            scores = detection[5:]
-            class_id = np.argmax(scores)
-            confidence = scores[class_id]
-            if confidence > 0.5:
-                center_x, center_y, width, height = list(map(int, detection[0:4] * np.array([image.shape[1], image.shape[0], image.shape[1], image.shape[0]])))
-                x, y = center_x - width // 2, center_y - height // 2
-                color = (0, 255, 0)
-                cv2.rectangle(image, (x, y), (x + width, y + height), color, 2)
-                label = f"{classes[class_id]}: {confidence:.2f}"
-                cv2.putText(image, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+# Load the image for detection
+image_path = "path/to/image.jpg"
+image = cv2.imread(image_path)
+
+# Convert the image to a tensor
+image_tensor = tf.convert_to_tensor(image)
+
+# Resize the image to the input size of the model
+image_tensor = tf.image.resize(image_tensor, (416, 416))
+
+# Predict the bounding boxes and classes for the image
+boxes, classes, scores = model(image_tensor)
+
+# Draw the bounding boxes and labels on the image
+for box, class_id, score in zip(boxes, classes, scores):
+    center_x, center_y, width, height = box.numpy()
+    x, y = int(center_x - width / 2), int(center_y - height / 2)
+    color = (0, 255, 0)
+    cv2.rectangle(image, (x, y), (x + width, y + height), color, 2)
+    label = f"{classes[class_id]}: {score:.2f}"
+    cv2.putText(image, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+
+# Display the image
+cv2.imshow("Object Detection", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+    ###end test
+   
     
     st.image(image, caption="Detected Objects", use_column_width=True)
 
