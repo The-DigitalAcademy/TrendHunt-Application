@@ -6,7 +6,7 @@ import gdown
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 # Authenticate with Google Drive API
-gauth = GoogleAuth()
+gauth = GoogleAuth(settings_file='https://drive.google.com/file/d/')
 gauth.LocalWebserverAuth() 
 
 drive = GoogleDrive(gauth)
