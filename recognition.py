@@ -94,7 +94,7 @@ cv2.destroyAllWindows()
     ###end test
    
     
-    st.image(image, caption="Detected Objects", use_column_width=True)
+st.image(image, caption="Detected Objects", use_column_width=True)
 
 # Add image details and specify a directory to save the detected image
 if st.button("Add Image Details and Save"):
