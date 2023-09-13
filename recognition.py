@@ -7,7 +7,7 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from tensorflow.keras.models import load_model
 # Authenticate with Google Drive API
-ttry:
+try:
     model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my_model.h5"
     model = load_model(model_path)
 except:
