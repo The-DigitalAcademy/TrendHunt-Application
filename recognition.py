@@ -8,11 +8,10 @@ from pydrive.drive import GoogleDrive
 from tensorflow.keras.models import load_model
 # Authenticate with Google Drive API
 try:
-    model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my_model.h5"
+    model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my data/model.h5"
     model = load_model(model_path)
 except:
-    model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my_model_epoch_300.h5"
-    model = load_model(model_path)
+   
     print("...it seems to be better to use more simple naming with the .h5 file!")
 
 
