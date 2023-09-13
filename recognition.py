@@ -12,7 +12,7 @@ gauth.LocalWebserverAuth()
 drive = GoogleDrive(gauth)
 
 # Replace 'file_id' with your model's file ID
-file_id = '1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5'
+file_id = '1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5.'
 
 # Find the file by its ID
 file = drive.CreateFile({'id': file_id})
