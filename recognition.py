@@ -5,27 +5,17 @@ import os
 import gdown
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
-# Authenticate with Google Drive API
-gauth = GoogleAuth(settings_file='https://drive.google.com/file/d/')
-gauth.LocalWebserverAuth() 
-
-drive = GoogleDrive(gauth)
-
-# Replace 'file_id' with your model's file ID
-file_id = '1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5.'
-
-# Find the file by its ID
-file = drive.CreateFile({'id': file_id})
-
-# Read the model file's content
-model_content = file.GetContentString()
-# For example, you can save it to a .h5 file and load the TensorFlow model
-with open('my_model.h5', 'wb') as f:
-    f.write(model_content.encode())
-
-# Load the TensorFlow model
 from tensorflow.keras.models import load_model
-model = load_model('my_model.h5')
+# Authenticate with Google Drive API
+try:
+    #model_path="drive/MyDrive/1117002_Code_Skripsi/Epoch-Train/300-0.001-train-file.h5"
+    model_path=r".\drive\MyDrive\1117002_Code_Skripsi\Epoch-Train\300-0.001-train-file.h5"
+    model=load_model(model_path)
+except:
+    model_path=r".\drive\MyDrive\1117002_Code_Skripsi\Epoch-Train\experience_in_ai.h5"
+    model=load_model(model_path)
+    print("...it seems to be better to use more simple naming with the .h5 file!")
+
 # Set the title and description of the app
 st.title("Image Capture, Object Detection, and Image Details App")
 st.write("This app allows you to capture or upload an image, perform object detection using YOLOv3, and add image details.")
