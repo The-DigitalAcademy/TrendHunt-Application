@@ -7,6 +7,9 @@ import gdown
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from tensorflow.keras.models import load_model
+import numpy as np
+import matplotlib.pyplot as plt
+from keras.preprocessing import image
 # Authenticate with Google Drive API
 try:
     model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my data/model.h5"
@@ -70,14 +73,18 @@ classes =['Hand-bags', 'wallets', 'Bags', 'Balls', 'Sunglasses', 'shorts', 'Pant
 image_path = "path/to/image.jpg"
 image = cv2.imread(image_path)
 
-# Convert the image to a tensor
-image_tensor = tf.convert_to_tensor(image)
 
-# Resize the image to the input size of the model
-image_tensor = tf.image.resize(image_tensor, (416, 416))
+#preprocess
+def load_image(path):
+    img = image.load_img(path, target_size=model.input_shape[1:3])
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+    return img, x
+    
 
 # Predict the bounding boxes and classes for the image
-boxes, classes, scores = model(image_tensor)
+boxes, classes, scores = model(load_image())
 
 # Draw the bounding boxes and labels on the image
 for box, class_id, score in zip(boxes, classes, scores):
