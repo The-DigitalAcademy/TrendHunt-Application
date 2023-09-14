@@ -73,7 +73,7 @@ if st.button("Detect Objects"):
     image_path = "captured_image.jpg" if option == "Capture Image" else "uploaded_image.jpg"
     st.write("Performing object detection...")
 
-   st.write(
+   st.write("hi")
     st.image(image, caption="Detected Objects", use_column_width=True)
 
 # Add image details and specify a directory to save the detected image
