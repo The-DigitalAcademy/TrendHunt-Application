@@ -13,6 +13,11 @@ from tensorflow.keras.models import load_model
 import requests
 
 # Replace 'your_direct_download_link' with the actual direct download link you generated.
+import pandas as pd
+from tensorflow.keras.models import load_model
+import requests
+
+# Replace 'your_direct_download_link' with the actual direct download link you generated.
 model_url = 'https://drive.google.com/uc?id=1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5'
 model_file_path = 'my_model.h5'
 
@@ -22,10 +27,20 @@ if response.status_code == 200:
     with open(model_file_path, 'wb') as file:
         file.write(response.content)
     print(f'Model saved to {model_file_path}')
+
+    # Load the TensorFlow model
+    loaded_model = load_model(model_file_path)
+
+    # Now you can use the loaded_model for predictions or other tasks
+    # For example:
+    # result = loaded_model.predict(some_data)
+
+    print('Model loaded successfully.')
 else:
     print('Failed to download the model.')
+
 ###
-model=load_model('my_model.h5')
+#model=load_model('my_model.h5')
 
 # Set the title and description of the app
 st.title("Image Capture, Object Detection, and Image Details App")
