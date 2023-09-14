@@ -7,12 +7,24 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from tensorflow.keras.models import load_model
 # Authenticate with Google Drive API
-try:
-    model_path = r"https://drive.google.com/file/d/1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5/my data/model.h5"
-    model = load_model(model_path)
-except:
-   
-    print("...it seems to be better to use more simple naming with the .h5 file!")
+###
+import pandas as pd
+from tensorflow.keras.models import load_model
+import requests
+
+# Replace 'your_direct_download_link' with the actual direct download link you generated.
+model_url = 'https://drive.google.com/uc?id=1-34mfUqojaxl16p4LKQGQ-KSP7IqeJI5'
+model_file_path = 'my_model.h5'
+
+response = requests.get(model_url)
+
+if response.status_code == 200:
+    with open(model_file_path, 'wb') as file:
+        file.write(response.content)
+    print(f'Model saved to {model_file_path}')
+else:
+    print('Failed to download the model.')
+###
 
 
 # Set the title and description of the app
