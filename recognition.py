@@ -25,7 +25,7 @@ if response.status_code == 200:
 else:
     print('Failed to download the model.')
 ###
-
+model=load_model('my_model.h5')
 
 # Set the title and description of the app
 st.title("Image Capture, Object Detection, and Image Details App")
@@ -73,34 +73,7 @@ if st.button("Detect Objects"):
     image_path = "captured_image.jpg" if option == "Capture Image" else "uploaded_image.jpg"
     st.write("Performing object detection...")
 
-    # Load YOLOv3 model
-    net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
-    #model= model 
-    with open("coco.names", "r") as f:
-        classes = f.read().strip().split("\n")
-    
-    # Load the image for detection
-    image = cv2.imread(image_path)
-    blob = cv2.dnn.blobFromImage(image, 1/255.0, (416, 416), swapRB=True, crop=False)
-    
-    net.setInput(blob)
-    layer_names = net.getUnconnectedOutLayersNames()
-    outputs = net.forward(layer_names)
-
-    # Loop over each detection
-    for output in outputs:
-        for detection in output:
-            scores = detection[5:]
-            class_id = np.argmax(scores)
-            confidence = scores[class_id]
-            if confidence > 0.5:
-                center_x, center_y, width, height = list(map(int, detection[0:4] * np.array([image.shape[1], image.shape[0], image.shape[1], image.shape[0]])))
-                x, y = center_x - width // 2, center_y - height // 2
-                color = (0, 255, 0)
-                cv2.rectangle(image, (x, y), (x + width, y + height), color, 2)
-                label = f"{classes[class_id]}: {confidence:.2f}"
-                cv2.putText(image, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
-    
+   st.write(
     st.image(image, caption="Detected Objects", use_column_width=True)
 
 # Add image details and specify a directory to save the detected image
