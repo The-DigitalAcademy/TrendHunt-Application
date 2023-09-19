@@ -63,7 +63,7 @@ def main():
             if result:
                 st.success("Login Successful!")
                 st.text('Redirecting to the main app...')
-                subprocess.Popen(['streamlit', 'run', 'cam.py'])
+                subprocess.Popen(['streamlit', 'run', 'main_app.py'])
                 os._exit(status=True)
             else:
                 st.error("Invalid Credentials. Please try again.")
