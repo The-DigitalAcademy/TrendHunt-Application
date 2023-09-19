@@ -6,7 +6,7 @@ from keras.preprocessing import image
 from keras.applications.vgg16 import VGG16, decode_predictions, preprocess_input
 from PIL import Image
 import pickle
-from scipy.spatial import distance  # Add this import statement
+from scipy.spatial import distance 
 
 
 
