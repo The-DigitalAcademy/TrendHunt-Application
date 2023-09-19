@@ -5,7 +5,8 @@ import numpy as np
 from keras.preprocessing import image
 from keras.applications.vgg16 import VGG16, decode_predictions, preprocess_input
 from PIL import Image
-import pickle
+#import pickle
+import joblib
 from scipy.spatial import distance 
 
 
@@ -16,7 +17,7 @@ model = VGG16(weights='imagenet')
 
 # Load the saved PCA features and images list
 file_path = 'pickle.p'
-images, pca_features, pca = pickle.load(open(file_path, 'rb'))
+images, pca_features, pca = joblib.load(open(file_path, 'rb'))
 
 # Define the feature extractor using the VGG16 model
 base_model = VGG16(weights='imagenet')
