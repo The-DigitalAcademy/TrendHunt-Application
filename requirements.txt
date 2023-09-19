@@ -1,4 +1,3 @@
-pickle
 streamlit 
 psycopg2
 streamlit 
