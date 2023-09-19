@@ -1,6 +1,6 @@
 import streamlit as st
 import psycopg2
-import psycopg2-binary
+#import psycopg2-binary
 import streamlit as st
 import numpy as np
 import os
