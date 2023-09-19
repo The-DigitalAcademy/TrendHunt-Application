@@ -1,3 +1,5 @@
 psycopg2
-tenserflow
+tensorflow
 streamlit
+pandas 
+pickle
