@@ -3,7 +3,7 @@ import psycopg2
 import streamlit as st
 import numpy as np
 import os
-import subprocess
+#import subprocess
 
 
 
@@ -64,7 +64,8 @@ def main():
                 st.success("Login Successful!")
                 st.text('Redirecting to the main app...')
                 #subprocess.Popen(['streamlit', 'run', 'main_app.py'])
-                os._exit(status=True)
+                st.write("My name is Malebo founder at TrendHunt")
+                #os._exit(status=True)
             else:
                 st.error("Invalid Credentials. Please try again.")
     else:
