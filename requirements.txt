@@ -1,5 +1,7 @@
-psycopg2
-tensorflow
-streamlit
-pandas 
 pickle
+streamlit 
+psycopg2
+streamlit 
+numpy 
+os
+subprocess
