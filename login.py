@@ -1,7 +1,6 @@
 import streamlit as st
 import psycopg2
 #import psycopg2-binary
-import streamlit as st
 import numpy as np
 import os
 #import subprocess
@@ -42,45 +41,47 @@ def login_user(username, password):
     data = cur.fetchall()
     return data
 
-
-# Initialize the database connection and cursor
-conn = init_connection()
-
-if conn is None:
-    st.error("Error connecting to the database.")
-else:
-    try:
-        cur = conn.cursor()
-
-        st.title("Login or Register")
-
-        # Create input fields for username and password
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
-
-        # Radio button for login or registration
-        action = st.radio("Select Action:", ("Login", "Register"))
-
-        if action == "Login":
-            if st.button("Login"):
-                create_usertable()
-                result = login_user(username, password)
-                if result:
-                    st.success("Login Successful!")
-                    st.text('Redirecting to the main app...')
-                    st.write("My name is Malebo founder at TrendHunt")
-                else:
-                    st.error("Invalid Credentials. Please try again.")
-        else:
-            if st.button("Register"):
-                create_usertable()
-                add_userdata(username, password)
-                st.success("Registration Successful! You can now login.")
+# Create Streamlit app
+def main():
+    st.title("Login or Register")
+    # Initialize the database connection and cursor
+    conn = init_connection()
+    
+    if conn is None:
+        st.error("Error connecting to the database.")
+    else:
+        try:
+            cur = conn.cursor()
+    
+            st.title("Login or Register")
+    
+            # Create input fields for username and password
+            username = st.text_input("Username")
+            password = st.text_input("Password", type="password")
+    
+            # Radio button for login or registration
+            action = st.radio("Select Action:", ("Login", "Register"))
+    
+            if action == "Login":
+                if st.button("Login"):
+                    create_usertable()
+                    result = login_user(username, password)
+                    if result:
+                        st.success("Login Successful!")
+                        st.text('Redirecting to the main app...')
+                        st.write("My name is Malebo founder at TrendHunt")
+                    else:
+                        st.error("Invalid Credentials. Please try again.")
             else:
-                st.error("Registration failed. User already exists or invalid data.")
-
-    except psycopg2.Error as e:
-        st.error(f"Error: {e}")
+                if st.button("Register"):
+                    create_usertable()
+                    add_userdata(username, password)
+                    st.success("Registration Successful! You can now login.")
+                else:
+                    st.error("Registration failed. User already exists or invalid data.")
+    
+        except psycopg2.Error as e:
+            st.error(f"Error: {e}")
 
 
    
