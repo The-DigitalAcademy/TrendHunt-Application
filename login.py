@@ -42,41 +42,46 @@ def login_user(username, password):
     data = cur.fetchall()
     return data
 
+
 # Initialize the database connection and cursor
 conn = init_connection()
-cur = conn.cursor()
 
-# Create Streamlit app
-def main():
-    st.title("Login or Register")
+if conn is None:
+    st.error("Error connecting to the database.")
+else:
+    try:
+        cur = conn.cursor()
 
-    # Create input fields for username and password
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+        st.title("Login or Register")
 
-    # Radio button for login or registration
-    action = st.radio("Select Action:", ("Login", "Register"))
+        # Create input fields for username and password
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
 
-    if action == "Login":
-        if st.button("Login"):
-            create_usertable()
-            result = login_user(username, password)
-            if result:
-                st.success("Login Successful!")
-                st.text('Redirecting to the main app...')
-                #subprocess.Popen(['streamlit', 'run', 'main_app.py'])
-                st.write("My name is Malebo founder at TrendHunt")
-                #os._exit(status=True)
-            else:
-                st.error("Invalid Credentials. Please try again.")
-    else:
-        if st.button("Register"):
-            create_usertable()
-            add_userdata(username, password)
-            st.success("Registration Successful! You can now login.")
+        # Radio button for login or registration
+        action = st.radio("Select Action:", ("Login", "Register"))
+
+        if action == "Login":
+            if st.button("Login"):
+                create_usertable()
+                result = login_user(username, password)
+                if result:
+                    st.success("Login Successful!")
+                    st.text('Redirecting to the main app...')
+                    st.write("My name is Malebo founder at TrendHunt")
+                else:
+                    st.error("Invalid Credentials. Please try again.")
         else:
-            st.error("Registration failed. User already exists or invalid data.")
-        
+            if st.button("Register"):
+                create_usertable()
+                add_userdata(username, password)
+                st.success("Registration Successful! You can now login.")
+            else:
+                st.error("Registration failed. User already exists or invalid data.")
+
+    except psycopg2.Error as e:
+        st.error(f"Error: {e}")
+
 
    
 if __name__ == "__main__":
