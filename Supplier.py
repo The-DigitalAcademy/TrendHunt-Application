@@ -12,7 +12,7 @@ if not os.path.exists("uploaded_folders"):
     os.makedirs("uploaded_folders")
 
 # Streamlit app header
-st.title("Supplier")
+st.title("Vendor")
 st.write("This is where you will upload your products in the form of CSV/Excel files or folders to be loaded in the system")
 
 # Sidebar for upload option
