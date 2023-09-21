@@ -40,7 +40,7 @@ if menu == "Register":
     st.header("User Registration")
     new_username = st.text_input("Username")
     new_password = st.text_input("Password", type="password")
-    new_role = st.selectbox("Select Role", ["User", "Supplier"])
+    new_role = st.selectbox("Select Role", ["User", "Vendor"])
 
     if st.button("Register"):
         if new_username and new_password:
@@ -52,7 +52,7 @@ elif menu == "Login":
     st.header("User Login")
     login_username = st.text_input("Username")
     login_password = st.text_input("Password", type="password")
-    login_role = st.selectbox("Select Role", ["User", "Supplier"])
+    login_role = st.selectbox("Select Role", ["User", "Vendor"])
 
     if st.button("Login"):
         if login_username and login_password:
@@ -62,8 +62,8 @@ elif menu == "Login":
                 # Redirect to user.py or supplier.py based on the role
                 if login_role == "User":
                     st.experimental_set_query_params(role="User")
-                elif login_role == "Supplier":
-                    st.experimental_set_query_params(role="Supplier")
+                elif login_role == "Vendor":
+                    st.experimental_set_query_params(role="Vendor")
             else:
                 st.error("Login failed. Check your username, password, and role.")
         else:
@@ -81,8 +81,8 @@ if "role" in st.experimental_get_query_params():
             st.experimental_set_query_params()
             # Redirect to user.py
             st.experimental_rerun()
-    elif role == "Supplier":
-        if st.button("Go to Supplier Dashboard"):
+    elif role == "Vendor":
+        if st.button("Go to Vendor Dashboard"):
             st.experimental_set_query_params()
             # Redirect to supplier.py
             st.experimental_rerun()
